@@ -2,14 +2,14 @@ import React from 'react';
 import moment from 'moment';
 import 'moment/locale/ja';
 
-export const TimePresenter = props => <time {...props} />;
+export const TimePresenter = props => <time { ...props } />;
 
 export const TimeContainer = ({
   presenter,
-  children: value,
+  children:value,
   dateTime,
   format = 'MM月DD日(ddd)HH:mm',
-  ...props
+  ...props,
 }) => {
   value = parseInt(value, 10);
 
@@ -19,20 +19,20 @@ export const TimeContainer = ({
   } else {
     children = formatDatetime(value, format);
   }
-
+  
   if (!dateTime) {
     dateTime = formatDatetime(value);
   }
+
   return presenter({ children, dateTime, ...props });
 };
 
 const Time = props => (
   <TimeContainer
-    presenter={presenterProps => <TimePresenter {...presenterProps} />}
-    {...props}
+    presenter={ presenterProps => <TimePresenter { ...presenterProps } /> }
+    { ...props }
   />
 );
-
 export default Time;
 
 moment.locale();
