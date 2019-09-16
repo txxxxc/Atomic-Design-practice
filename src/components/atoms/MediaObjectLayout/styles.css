@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+}
+
+.body {
+  /* 余白を100%伸ばす */
+  flex: 1;
+  min-width: 0;
+}
