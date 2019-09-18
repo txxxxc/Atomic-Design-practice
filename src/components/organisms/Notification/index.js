@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './styles.css';
+import MediaObjectLayout from '../../atoms/MediaObjectLayout/index.js';
 import Img from '../../atoms/Img/index.js';
 import Heading from '../../atoms/Heading/index.js';
 import { InfoTxt } from '../../atoms/Txt/index.js';
@@ -13,7 +14,11 @@ export class NotificationContainer extends Component {
   }
 
   render() {
-    const { presenter, onClickDelete:propsOnClickDelete, ...props } = this.props;
+    const {
+      presenter,
+      onClickDelete: propsOnClickDelete,
+      ...props
+    } = this.props;
     const onClickDelete = propsOnClickDelete ? this.onClickDelete : null;
     const presenterProps = { onClickDelete, ...props };
     return presenter(presenterProps);
@@ -29,28 +34,34 @@ export const NotificationPresenter = ({
   program,
   className,
   onClickDelete,
-  ...props,
+  ...props
 }) => (
-  <section className={ [ styles.root, className ].join(' ') } { ...props }>
-    <div>
-      <Img src={ program.thumbnail } className={ styles.media } width="128" height="72" />
-    </div>
-    <div className={ styles.body }>
-      <Heading level={ 3 } visualLevel={ 6 }>{ program.title }</Heading>
-      <InfoTxt size="s">{ program.channelName }</InfoTxt>
-      <InfoTxt size="s" className={ styles.time }>
-        <Time format="MM月DD日(ddd)HH:mm">{ program.startAt }</Time> ～
-        <Time format="HH:mm">{ program.endAt }</Time>
-      </InfoTxt>
-      <DeleteButton onClick={ onClickDelete } className={ styles.del } />
-    </div>
-  </section>
+  <MediaObjectLayout
+    tag="section"
+    className={[styles.root, className].join('')}
+    {...props}
+  >
+    <Img
+      src={program.thumbnail}
+      className={styles.media}
+      width="128"
+      height="72"
+    />
+    <Heading level={3} visualLevel={6}>
+      {program.title}
+    </Heading>
+    <InfoTxt size="s"> {program.channelName}</InfoTxt>
+    <InfoTxt size="s" className={styles.time}></InfoTxt>
+    <Time format="MM月DD日(ddd)HH:mm">{program.startAt}</Time> ~{' '}
+    <Time format="HH:mm">{program.endAt}</Time>
+    <DeleteButton onClick={onClickDelete} className={styles.del} />
+  </MediaObjectLayout>
 );
 
 const Notification = props => (
   <NotificationContainer
-    presenter={ presenterProps => <NotificationPresenter { ...presenterProps } /> }
-    { ...props }
+    presenter={presenterProps => <NotificationPresenter {...presenterProps} />}
+    {...props}
   />
 );
 
