@@ -1,29 +1,18 @@
-/*
-訂正：紙面掲載のコードにて、
-import { containPresenter } from '../../utils/HoC.js';
-という記述がありますが、このタイミングではこの 1 行は必要ありません。
-記述するとエラーになりますので、この行は記述しないようにお願いします。
-*/
-
 import React from 'react';
 import styles from './styles.css';
+import { containPresenter } from '../../utils/HoC.js';
 
-const HolyGrailLayoutPresenter = ({
-  tag: Tag = 'div',
-  parts,
-  className,
-  ...props
-}) => {
+const HolyGrailLayoutPresenter = ({ tag:Tag = 'div', parts, className, ...props }) => {
   const { top, bottom, main, left, right } = parts;
   return (
-    <Tag className={[styles.root, className].join('')}>
-      {top}
+    <Tag className={[ styles.root, className ].join(' ')}>
+      { top }
       <div className={styles.body}>
-        {main}
-        {left}
-        {right}
+        { main }
+        { left }
+        { right }
       </div>
-      {bottom}
+      { bottom }
     </Tag>
   );
 };
@@ -38,30 +27,21 @@ const partTypes = [
   'HolyGrailBottom',
   'HolyGrailMain',
   'HolyGrailLeft',
-  'HolyGrailRight'
+  'HolyGrailRight',
 ];
 
 function mapParts(elems) {
   const parts = [];
   elems.map(elem => {
-    console.log(elem);
     const idx = partTypes.indexOf(elem.type.displayName);
     if (!~idx) return;
     parts[idx] = elem.props.children;
   });
-  const [top, bottom, main, left, right] = props;
+  const [ top, bottom, main, left, right ] = parts;
   return { top, bottom, main, left, right };
 }
 
-const HolyGrailLayout = props => (
-  <HolyGrailLayoutContainer
-    presenter={presenterProps => (
-      <HolyGrailLayoutPresenter {...presenterProps} />
-    )}
-    {...props}
-  />
-);
-
+const HolyGrailLayout = containPresenter(HolyGrailLayoutContainer, HolyGrailLayoutPresenter);
 export default HolyGrailLayout;
 
 export const HolyGrailTop = () => <div>これはレンダリングされないもの</div>;
