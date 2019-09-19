@@ -40,3 +40,32 @@ const partTypes = [
   'HolyGrailLeft',
   'HolyGrailRight'
 ];
+
+function mapParts(elems) {
+  const parts = [];
+  elems.map(elem => {
+    console.log(elem);
+    const idx = partTypes.indexOf(elem.type.displayName);
+    if (!~idx) return;
+    parts[idx] = elem.props.children;
+  });
+  const [top, bottom, main, left, right] = props;
+  return { top, bottom, main, left, right };
+}
+
+const HolyGrailLayout = props => (
+  <HolyGrailLayoutContainer
+    presenter={presenterProps => (
+      <HolyGrailLayoutPresenter {...presenterProps} />
+    )}
+    {...props}
+  />
+);
+
+export default HolyGrailLayout;
+
+export const HolyGrailTop = () => <div>これはレンダリングされないもの</div>;
+export const HolyGrailBottom = () => <div>これはレンダリングされないもの</div>;
+export const HolyGrailMain = () => <div>これはレンダリングされないもの</div>;
+export const HolyGrailLeft = () => <div>これはレンダリングされないもの</div>;
+export const HolyGrailRight = () => <div>これはレンダリングされないもの</div>;
