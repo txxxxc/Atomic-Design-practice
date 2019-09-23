@@ -1,4 +1,4 @@
-@import "../../properties.css";
+@import '../../properties.css';
 
 @keyframes fade {
   from {
@@ -14,7 +14,6 @@
     background-color: var(--color-selected);
   }
 }
-
 .root {
   position: relative;
 }

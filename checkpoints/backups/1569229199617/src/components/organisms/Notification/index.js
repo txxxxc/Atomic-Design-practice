@@ -15,11 +15,7 @@ export class NotificationContainer extends Component {
   }
 
   render() {
-    const {
-      presenter,
-      onClickDelete: propsOnClickDelete,
-      ...props
-    } = this.props;
+    const { presenter, onClickDelete:propsOnClickDelete, ...props } = this.props;
     const onClickDelete = propsOnClickDelete ? this.onClickDelete : null;
     const presenterProps = { onClickDelete, ...props };
     return presenter(presenterProps);
@@ -35,34 +31,20 @@ export const NotificationPresenter = ({
   program,
   className,
   onClickDelete,
-  ...props
+  ...props,
 }) => (
-  <MediaObjectLayout
-    tag="section"
-    className={[styles.root, className].join(' ')}
-    {...props}
-  >
-    <Img
-      src={program.thumbnail}
-      className={styles.media}
-      width="128"
-      height="72"
-    />
-    <Heading level={3} visualLevel={6}>
-      {program.title}
-    </Heading>
-    <InfoTxt size="s">{program.channelName}</InfoTxt>
-    <InfoTxt size="s" className={styles.time}>
-      <Time format="MM月DD日(ddd)HH:mm">{program.startAt}</Time> ～
-      <Time format="HH:mm">{program.endAt}</Time>
+  <MediaObjectLayout tag="section" className={ [ styles.root, className ].join(' ') } { ...props }>
+    <Img src={ program.thumbnail } className={ styles.media } width="128" height="72" />
+    <Heading level={ 3 } visualLevel={ 6 }>{ program.title }</Heading>
+    <InfoTxt size="s">{ program.channelName }</InfoTxt>
+    <InfoTxt size="s" className={ styles.time }>
+      <Time format="MM月DD日(ddd)HH:mm">{ program.startAt }</Time> ～
+      <Time format="HH:mm">{ program.endAt }</Time>
     </InfoTxt>
-    <DeleteButton onClick={onClickDelete} className={styles.del} />
+    <DeleteButton onClick={ onClickDelete } className={ styles.del } />
   </MediaObjectLayout>
 );
 
-const Notification = containPresenter(
-  NotificationContainer,
-  NotificationPresenter
-);
+const Notification = containPresenter(NotificationContainer, NotificationPresenter);
 
 export default Notification;
