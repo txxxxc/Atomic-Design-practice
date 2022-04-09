@@ -19,7 +19,7 @@
     "checkpoint": "node scripts/checkpoint.js"
   },
   "dependencies": {
-    "moment": "^2.19.2",
+    "moment": "^2.29.2",
     "react": "15.6.2",
     "react-addons-perf": "^15.4.2",
     "react-dom": "15.6.2",
